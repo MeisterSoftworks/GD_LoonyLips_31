@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/LoonyLips.gd" type="Script" id=1]
 [ext_resource path="res://gfx/blackboard.jpg" type="Texture" id=2]
 [ext_resource path="res://gfx/Feltpen.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://gfx/blue_button11.png" type="Texture" id=4]
+[ext_resource path="res://gfx/blue_button12.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -10,6 +12,10 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
 font_data = ExtResource( 3 )
 
 [node name="LoonyLips" type="Control"]
@@ -33,18 +39,43 @@ margin_bottom = -24.0
 alignment = 2
 
 [node name="DisplayText" type="Label" parent="VBoxContainer"]
+margin_top = 4.0
 margin_right = 1232.0
-margin_bottom = 600.0
+margin_bottom = 604.0
 rect_min_size = Vector2( 0, 600 )
 custom_fonts/font = SubResource( 1 )
 text = "Placeholder Text"
 autowrap = true
 
-[node name="PlayerText" type="LineEdit" parent="VBoxContainer"]
-margin_top = 604.0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 608.0
 margin_right = 1232.0
-margin_bottom = 679.0
+margin_bottom = 683.0
+custom_constants/separation = 16
+
+[node name="PlayerText" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+margin_right = 1041.0
+margin_bottom = 75.0
 rect_min_size = Vector2( 0, 75 )
+size_flags_horizontal = 3
 custom_fonts/font = SubResource( 2 )
 
-[connection signal="text_entered" from="VBoxContainer/PlayerText" to="." method="_on_PlayerText_text_entered"]
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+margin_left = 1057.0
+margin_right = 1132.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 75, 75 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="OK" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 1148.0
+margin_top = 6.0
+margin_right = 1232.0
+margin_bottom = 69.0
+custom_fonts/font = SubResource( 3 )
+text = "OK!"
+
+[connection signal="text_entered" from="VBoxContainer/HBoxContainer/PlayerText" to="." method="_on_PlayerText_text_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
