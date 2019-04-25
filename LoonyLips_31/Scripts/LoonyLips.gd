@@ -1,16 +1,31 @@
 extends Control
 
 var player_words = []
-var prompts = ["an animal", "a verb", "a noun", "a plural noun"]
-var story = "Once there was a giant %s. He was always being encouraged to try but he just got tired of %s. This banter didn't go over well with the %s, but what could he expect from a bunch of %s!"
+
+var template = [
+		{
+			"prompts" : ["an animal", "a verb", "a noun", "another noun"],
+			"story" : "Once there was a giant %s. He was always being encouraged to succeed but he just got tired of %s. This action didn't go over well with the %s, but what could he expect from a whiny %s!"
+		},
+		{
+			"story" : "Johnny was a good %s, much better at it than his peers. He put effort into making %s performances, which caused his audience to become %s of his showmanship.",
+			"prompts" : ["a hobby", "an adjective", "a feeling"]
+		}
+		]
+var current_story
 
 onready var PlayerText = $VBoxContainer/HBoxContainer/PlayerText
 onready var DisplayText = $VBoxContainer/DisplayText
 
 func _ready():
+	set_current_story()
 	DisplayText.text = ("Welcome to Loony Lips, a program inspired by the popular game MadLibs!!\n\n")
 	check_PlayerWords_length()
 	PlayerText.grab_focus()
+
+func set_current_story():
+	randomize()
+	current_story = template[randi() % template.size()]
 
 func _on_PlayerText_text_entered(new_text):
 	addto_PlayerWords()
@@ -29,7 +44,7 @@ func addto_PlayerWords():
 	check_PlayerWords_length()
 
 func is_story_done():
-	return player_words.size() == prompts.size() #Check that player_words is same size as prompts.
+	return player_words.size() == current_story.prompts.size() #Check that player_words is same size as prompts.
 
 func check_PlayerWords_length():
 	if is_story_done():
@@ -38,10 +53,10 @@ func check_PlayerWords_length():
 		prompt_player()
 
 func tell_story():
-	DisplayText.text = story % player_words
+	DisplayText.text = current_story.story % player_words
 
 func prompt_player():
-	DisplayText.text += "May I have " + prompts[player_words.size()] + ", please?"
+	DisplayText.text += "May I have " + current_story.prompts[player_words.size()] + ", please?"
 
 func end_game():
 	PlayerText.queue_free()
