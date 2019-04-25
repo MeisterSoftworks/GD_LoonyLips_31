@@ -1,21 +1,28 @@
 extends Control
 
+# Flavor for later
+enum action_type{
+	STAND, RIDE, CALL, VANGUARD, REARGUARD, GIFT, INTERCEPT
+	}
+
 var player_words = []
 
-var template = [
-		{
-			"prompts" : ["an animal", "a verb", "a noun", "another noun"],
-			"story" : "Once there was a giant %s. He was always being encouraged to succeed but he just got tired of %s. This action didn't go over well with the %s, but what could he expect from a whiny %s!"
-		},
-		{
-			"story" : "Johnny was a good %s, much better at it than his peers. He put effort into making %s performances, which caused his audience to become %s of his showmanship.",
-			"prompts" : ["a hobby", "an adjective", "a feeling"]
-		}
-		]
+#var template = [
+#		{
+#			"prompts" : ["an animal", "a verb", "a noun", "another noun"],
+#			"story" : "Once there was a giant %s. He was always being encouraged to succeed but he just got tired of %s. This action didn't go over well with the %s, but what could he expect from a whiny %s!"
+#		},
+#		{
+#			"story" : "Johnny was a good %s, much better at it than his peers. He put effort into making %s performances, which caused his audience to become %s of his showmanship.",
+#			"prompts" : ["a hobby", "an adjective", "a feeling"]
+#		}
+#		]
 var current_story
 
 onready var PlayerText = $VBoxContainer/HBoxContainer/PlayerText
 onready var DisplayText = $VBoxContainer/DisplayText
+
+
 
 func _ready():
 	set_current_story()
@@ -25,7 +32,14 @@ func _ready():
 
 func set_current_story():
 	randomize()
-	current_story = template[randi() % template.size()]
+	var stories = $StoryBook.get_child_count()
+	var selected_story = randi() % stories
+	current_story = $StoryBook.get_child(selected_story)
+	
+#	current_story.prompts = $StoryBook.get_child(selected_story).prompts
+#	current_story.story = $StoryBook.get_child(selected_story).story
+	
+#	current_story = template[randi() % template.size()]
 
 func _on_PlayerText_text_entered(new_text):
 	addto_PlayerWords()
