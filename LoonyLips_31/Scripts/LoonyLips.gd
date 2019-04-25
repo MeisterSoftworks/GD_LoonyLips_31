@@ -10,12 +10,16 @@ onready var DisplayText = $VBoxContainer/DisplayText
 func _ready():
 	DisplayText.text = ("Welcome to Loony Lips, a program inspired by the popular game MadLibs!!\n\n")
 	check_PlayerWords_length()
+	PlayerText.grab_focus()
 
 func _on_PlayerText_text_entered(new_text):
 	addto_PlayerWords()
 
 func _on_TextureButton_pressed():
-	addto_PlayerWords()
+	if is_story_done():
+		get_tree().reload_current_scene()
+	else:
+		addto_PlayerWords()
 
 func addto_PlayerWords():
 	player_words.append(PlayerText.text)
@@ -29,7 +33,7 @@ func is_story_done():
 
 func check_PlayerWords_length():
 	if is_story_done():
-		tell_story()
+		end_game()
 	else:
 		prompt_player()
 
@@ -38,3 +42,9 @@ func tell_story():
 
 func prompt_player():
 	DisplayText.text += "May I have " + prompts[player_words.size()] + ", please?"
+
+func end_game():
+	PlayerText.queue_free()
+	$VBoxContainer/HBoxContainer/Label.text = "Again!"
+	tell_story()
+
