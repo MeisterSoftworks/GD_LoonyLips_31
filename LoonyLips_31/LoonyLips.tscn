@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scripts/LoonyLips.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/LoonyLips_JSON.gd" type="Script" id=1]
 [ext_resource path="res://gfx/blackboard.jpg" type="Texture" id=2]
 [ext_resource path="res://gfx/Feltpen.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://gfx/blue_button11.png" type="Texture" id=4]
 [ext_resource path="res://gfx/blue_button12.png" type="Texture" id=5]
-[ext_resource path="res://Scripts/Story.gd" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -77,18 +76,6 @@ margin_right = 1232.0
 margin_bottom = 69.0
 custom_fonts/font = SubResource( 3 )
 text = "OK!"
-
-[node name="StoryBook" type="Node" parent="."]
-
-[node name="Story0" type="Node" parent="StoryBook"]
-script = ExtResource( 6 )
-prompts = PoolStringArray( "an animal", "a verb", "a noun", "another noun" )
-story = "Once there was a giant %s. He was always being encouraged to succeed but he just got tired of %s. This action didn't go over well with the %s, but what could he expect from a whiny %s!"
-
-[node name="Story1" type="Node" parent="StoryBook"]
-script = ExtResource( 6 )
-prompts = PoolStringArray( "a hobby", "an adjective", "a feeling" )
-story = "Johnny was a good %s, much better at it than his peers. He put effort into making %s performances, which caused his audience to become %s of his showmanship."
 
 [connection signal="text_entered" from="VBoxContainer/HBoxContainer/PlayerText" to="." method="_on_PlayerText_text_entered"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]

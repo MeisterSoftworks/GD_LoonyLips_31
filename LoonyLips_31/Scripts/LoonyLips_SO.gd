@@ -6,23 +6,10 @@ enum action_type{
 	}
 
 var player_words = []
-
-#var template = [
-#		{
-#			"prompts" : ["an animal", "a verb", "a noun", "another noun"],
-#			"story" : "Once there was a giant %s. He was always being encouraged to succeed but he just got tired of %s. This action didn't go over well with the %s, but what could he expect from a whiny %s!"
-#		},
-#		{
-#			"story" : "Johnny was a good %s, much better at it than his peers. He put effort into making %s performances, which caused his audience to become %s of his showmanship.",
-#			"prompts" : ["a hobby", "an adjective", "a feeling"]
-#		}
-#		]
 var current_story
 
 onready var PlayerText = $VBoxContainer/HBoxContainer/PlayerText
 onready var DisplayText = $VBoxContainer/DisplayText
-
-
 
 func _ready():
 	set_current_story()
